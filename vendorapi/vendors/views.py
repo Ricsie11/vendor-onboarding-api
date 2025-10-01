@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView
 from .models import Vendor
 from .serializers import VendorSerializer, UserSignupSerializer
 from rest_framework.permissions import IsAuthenticated 
-from django.contrib.auth import login, get_user_model, logout
+from django.contrib.auth import login, logout
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
