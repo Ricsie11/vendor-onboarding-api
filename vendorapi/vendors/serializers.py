@@ -20,7 +20,7 @@ class UserSignupSerializer(serializers.ModelSerializer):
         fields = ['full_name', 'email']
 
     def create(self, validated_data):
-        full_name = validated_data.pop('full_name')
+        full_name = validated_data.pop('full_name') # Extract the full_name from the validated data
 
         user = User.objects.create(
             first_name=full_name,

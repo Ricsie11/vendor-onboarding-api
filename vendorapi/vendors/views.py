@@ -1,9 +1,8 @@
-from django.shortcuts import render
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView
 from .models import Vendor
 from .serializers import VendorSerializer, UserSignupSerializer
 from rest_framework.permissions import IsAuthenticated 
-from django.contrib.auth import login, logout
+from django.contrib.auth import authenticate, login, logout
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
@@ -21,6 +20,12 @@ class VendorListCreateView(ListCreateAPIView):
     def perform_create(self,serializer):
         # Automatically associate the vendor with the logged-in user
         serializer.save(user=self.request.user)
+
+#  --- Fetches Onboarded users ---
+class OnboardedVendorListView(ListAPIView):
+    queryset = Vendor.objects.filter(is_onboarded=True)
+    serializer_class = VendorSerializer
+    permission_classes = [IsAuthenticated] #Authenticates users
 
 
 #  ---- Vendor Detail View ----
